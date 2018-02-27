@@ -1,0 +1,92 @@
+diff a/starter/Tutorial 1/imgui.ini b/starter/Tutorial 1/imgui.ini	(rejected hunks)
+@@ -1,90 +0,0 @@
+-[Debug]
+-Pos=0,20
+-Size=298,270
+-Collapsed=0
+-
+-[ImGui Demo]
+-Pos=305,3
+-Size=796,778
+-Collapsed=0
+-
+-[Example: Console]
+-Pos=461,53
+-Size=520,600
+-Collapsed=0
+-
+-[Example: Custom rendering]
+-Pos=320,45
+-Size=350,560
+-Collapsed=0
+-
+-[Example: Log]
+-Pos=60,60
+-Size=500,400
+-Collapsed=0
+-
+-[ImGui Metrics]
+-Pos=60,60
+-Size=385,185
+-Collapsed=0
+-
+-[Style Editor]
+-Pos=60,60
+-Size=107,118
+-Collapsed=0
+-
+-[About ImGui]
+-Pos=112,94
+-Size=533,83
+-Collapsed=0
+-
+-[Example: Layout]
+-Pos=276,156
+-Size=500,440
+-Collapsed=0
+-
+-[Example: Property editor]
+-Pos=60,60
+-Size=430,450
+-Collapsed=0
+-
+-[Example: Long text display]
+-Pos=60,60
+-Size=520,600
+-Collapsed=0
+-
+-[Example: Auto-resizing window]
+-Pos=68,74
+-Size=512,336
+-Collapsed=0
+-
+-[Emitter 0]
+-Pos=0,20
+-Size=367,457
+-Collapsed=0
+-
+-[About Particle System Editor]
+-Pos=94,472
+-Size=211,86
+-Collapsed=0
+-
+-[My Window Name]
+-Pos=337,94
+-Size=238,238
+-Collapsed=0
+-
+-[Emitter 1]
+-Pos=0,20
+-Size=367,457
+-Collapsed=0
+-
+-[Emitter 2]
+-Pos=0,20
+-Size=367,434
+-Collapsed=0
+-
+-[Add Path Node]
+-Pos=522,216
+-Size=686,54
+-Collapsed=0
+-
