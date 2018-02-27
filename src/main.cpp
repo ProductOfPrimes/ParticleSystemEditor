@@ -344,13 +344,19 @@ void SaveEmitterSystemTextFile() {
 	{
 		std::ofstream textFile(outPath, std::ios::out, std::ios::binary);
 		if (textFile.is_open()) {
-			ParticleEmitter* emitter = activeSystem->m_emitters[0];
-			textFile.write(reinterpret_cast<char*>(&emitter->myConfig), sizeof(ParticleEmitter::Config));
-			textFile.write(reinterpret_cast<char*>(&emitter->myState.transform), sizeof(Transform));
-			WriteCrazyAssShitToFile(emitter->myState.path.m_data, textFile);
-			WriteCrazyAssShitToFile(emitter->myState.sizeGraph.m_data, textFile);
-			WriteCrazyAssShitToFile(emitter->myState.speedGraph.m_data, textFile);
-			WriteCrazyAssShitToFile(emitter->myState.colourGraph.m_data, textFile);
+			activeSystem->getEmitter(currentEmitter)->myState.path = grapher.getPath();
+
+			int numEmitters = activeSystem->m_emitters.size();
+			textFile.write((char*)&numEmitters, sizeof(int));
+			for (int ix = 0; ix < activeSystem->m_emitters.size(); ix++) {
+				ParticleEmitter* emitter = activeSystem->m_emitters[ix];
+				textFile.write(reinterpret_cast<char*>(&emitter->myConfig), sizeof(ParticleEmitter::Config));
+				textFile.write(reinterpret_cast<char*>(&emitter->myState.transform), sizeof(Transform));
+				emitter->myState.path.Write(textFile);
+				emitter->myState.sizeGraph.Write(textFile);
+				emitter->myState.speedGraph.Write(textFile);
+				emitter->myState.colourGraph.Write(textFile);
+			}
 			/*
 			textFile << std::to_string(activeSystem->m_emitters[0]->getNumParticles()) << " ";
 			textFile << std::to_string(activeSystem->m_emitters[0]->arriveForce) << " ";
@@ -481,16 +487,21 @@ void OpenEmitterSystemTextFile() {
 		std::ifstream textFile(outPath, std::ios::in, std::ios::binary);
 		if (textFile.is_open()) {
 			activeSystem->clearSystem();
-			addEmitter();
-			ParticleEmitter* emitter = activeSystem->m_emitters[0];
-			textFile.read(reinterpret_cast<char*>(&emitter->myConfig), sizeof(ParticleEmitter::Config));
-			textFile.read(reinterpret_cast<char*>(&emitter->myState.transform), sizeof(Transform));
-			emitter->setNumParticles(emitter->myConfig.numberOfParticles);
-			
-			ReadCrazyAssShitFromFile(emitter->myState.path.m_data, textFile);
-			ReadCrazyAssShitFromFile(emitter->myState.sizeGraph.m_data, textFile);
-			ReadCrazyAssShitFromFile(emitter->myState.speedGraph.m_data, textFile);
-			ReadCrazyAssShitFromFile(emitter->myState.colourGraph.m_data, textFile);
+
+			int numEmitters = 0;
+			textFile.read((char*)&numEmitters, sizeof(int));
+			for (int ix = 0; ix < numEmitters; ix++) {
+				addEmitter();
+				ParticleEmitter* emitter = activeSystem->m_emitters[ix];
+				textFile.read(reinterpret_cast<char*>(&emitter->myConfig), sizeof(ParticleEmitter::Config));
+				textFile.read(reinterpret_cast<char*>(&emitter->myState.transform), sizeof(Transform));
+				emitter->setNumParticles(emitter->myConfig.numberOfParticles);
+
+				emitter->myState.path.Read(textFile);
+				emitter->myState.sizeGraph.Read(textFile);
+				emitter->myState.speedGraph.Read(textFile);
+				emitter->myState.colourGraph.Read(textFile);
+			}
 
 			/*
 			int NumParticles;
@@ -781,11 +792,13 @@ void showUI() {
 			if (ImGui::CollapsingHeader("Emitter Transform Options"))
 			{
 				glm::vec3 position = emitter->myState.transform.getPosition();
+				glm::vec3 rotation = emitter->myState.transform.getRotation();
+
 				if (ImGui::DragFloat3("Position", &position.x))
 				{
 					emitter->myState.transform.setPosition(position);
 				}
-				if (ImGui::DragFloat3("Rotation", &(rotation.x)))
+				if (ImGui::DragFloat3("Rotation", &rotation.x))
 				{
 					emitter->myState.transform.setRotation(rotation);
 				}
@@ -1005,8 +1018,7 @@ void showUI() {
 						ImGui::TreePop();
 					}
 				}
-
-				
+								
 				ImGui::Separator();
 				if (ImGui::Button("open path"))
 				{

@@ -317,7 +317,7 @@ public:
 	}
 };
 
-//BOOST_CLASS_VERSION(ParticleEmitter, 1)
+BOOST_CLASS_VERSION(ParticleEmitter, 1)
 
 class ParticleSystem : public Component //encapsulates an entire visual effect
 {

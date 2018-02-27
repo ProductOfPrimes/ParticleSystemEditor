@@ -67,20 +67,36 @@ namespace algomath
 	template<>
 	Path<float> createDefaultTable(); //creates a lerp function table, i.e. it's a line that goes from 0 to 1 with a slope of 1
 
+	template<typename T>
+	inline void GenDefaultTable(std::list<NodeGraphTableEntry<T>>& list) {
+
+	};
+
+	template<>
+	inline void GenDefaultTable<float>(std::list<NodeGraphTableEntry<float>>& list) {
+		std::list<NodeGraphTableEntry<float>> intervalData = std::list<NodeGraphTableEntry<float>>();
+		NodeGraphTableEntry<float> entry = NodeGraphTableEntry<float>(0.0f, 0.0f, 0.0f);
+		list.push_back(entry);
+		entry = NodeGraphTableEntry<float>(1.0f, 1.0f, 1.0f);
+		list.push_back(entry);
+	};
+
 	template <typename T>
 	void ReadCrazyAssShitFromFile(std::vector<std::list<NodeGraphTableEntry<T>>>& thingy, std::ifstream& file) {
 		int numLists = 0;
 		file.read((char*)&numLists, sizeof(int));
 		for (int ix = 0; ix < numLists; ix++) {
-			std::list<NodeGraphTableEntry<T>> list = std::list<NodeGraphTableEntry<T>>();
+			std::list<NodeGraphTableEntry<T>> list = std::list<NodeGraphTableEntry<T>>();			
 			int numEntries = 0;
 			file.read((char*)&numEntries, sizeof(int));
-			for (int jx = 0; jx < numEntries; jx++) {
-				NodeGraphTableEntry<T> instance = NodeGraphTableEntry<T>();
-				file.read(reinterpret_cast<char*>(&instance), sizeof(NodeGraphTableEntry<T>));
-				list.push_back(instance);
+			if (numEntries != 0) {
+				for (int jx = 0; jx < numEntries; jx++) {
+					NodeGraphTableEntry<T> instance = NodeGraphTableEntry<T>();
+					file.read(reinterpret_cast<char*>(&instance), sizeof(NodeGraphTableEntry<T>));
+					list.push_back(instance);
+				}
+				thingy.push_back(list);
 			}
-			thingy.push_back(list);
 		}
 	}
 
@@ -88,12 +104,14 @@ namespace algomath
 	void WriteCrazyAssShitToFile(std::vector<std::list<NodeGraphTableEntry<T>>>& thingy, std::ofstream& file) {
 		int size = thingy.size();
 		file.write((char*)&size, sizeof(int));
-		for (int ix = 0; ix < thingy.size(); ix++) {
+		for (int ix = 0; ix < size; ix++) {
 			std::list<NodeGraphTableEntry<T>>& list = thingy[ix];
 			int listSize = list.size();
 			file.write((char*)&listSize, sizeof(int));
-			for (NodeGraphTableEntry<T>& element : list) {
-				file.write(reinterpret_cast<char*>(&element), sizeof(NodeGraphTableEntry<T>));
+			if (listSize > 0) {
+				for (NodeGraphTableEntry<T>& element : list) {
+					file.write(reinterpret_cast<char*>(&element), sizeof(NodeGraphTableEntry<T>));
+				}
 			}
 		}
 	}
@@ -123,6 +141,8 @@ namespace algomath
 		T lookupPointIndexAndDistValue(int a_index, float a_distAlongPath);
 		T lookupPointIndexAndTValue(int a_index, float a_tLocal);
 
+		void Write(std::ofstream& file);
+		void Read(std::ifstream& file);
 	private:
 		float m_length; // length of the path defined by this data
 	};
@@ -299,6 +319,19 @@ namespace algomath
 
 		ret = algomath::lerp(iter->val, iter_next->val, tEvenMoreLocal);
 		return ret;
+	}
+
+	template<class T>
+	inline void Path<T>::Write(std::ofstream & file) {
+		WriteCrazyAssShitToFile(m_data, file);
+		file.write((char*)&m_length, sizeof(float));
+	}
+
+	template<class T>
+	inline void Path<T>::Read(std::ifstream & file) {
+		ReadCrazyAssShitFromFile(m_data, file);
+		file.read((char*)&m_length, sizeof(float));
+		updateDistances();
 	}
 
 	template<>
