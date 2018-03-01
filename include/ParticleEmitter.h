@@ -46,8 +46,6 @@ struct Particle
 	float life; // lifetime remaining in seconds
 	float lifespan;
 
-	
-
 	float distanceTravelledAlongPath = 0.f;
 
 	void update(float dt); // update position based off of forces/acceleration, and then resets them to 0
@@ -134,7 +132,6 @@ public:
 	void setSizeRangeEnd(float min, float max);
 
 	struct ActiveState {
-		Transform transform;
 
 		algomath::Path<glm::vec3> path;
 		//motion graphs
@@ -216,6 +213,8 @@ public:
 
 		glm::vec4 colourEnd0;
 		glm::vec4 colourEnd1;
+
+		Transform transform;
 	} myConfig;
 
 	template<class Archive>
@@ -229,7 +228,7 @@ public:
 		ar & colourHack;
 
 		//transformation data
-		ar & myState.transform;
+		ar & myConfig.transform;
 
 		////emitter properties///////////////////////////////////////////////////////////////////////
 		ar &myConfig.rotationalVelocity;

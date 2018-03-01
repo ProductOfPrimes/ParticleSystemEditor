@@ -448,8 +448,8 @@ void ParticleEmitter::initialize(unsigned int numParticles)
 	myState.colourGraph = algomath::createDefaultTable<float>();
 
 	//transforms
-	myState.transform.setPosition(glm::vec3(0.f));
-	myState.transform.setRotation(glm::vec3(0.f));
+	myConfig.transform.setPosition(glm::vec3(0.f));
+	myConfig.transform.setRotation(glm::vec3(0.f));
 
 	////emitter properties////
 	myConfig.rotationalVelocity = glm::vec3(0.f);
@@ -575,8 +575,8 @@ void ParticleEmitter::update(float dt)
 {
 	// update emitter
 	glm::vec3 rotation = myConfig.rotationalVelocity * dt;
-	myState.transform.rotateXYZ(rotation);
-	myState.transform.update();
+	myConfig.transform.rotateXYZ(rotation);
+	myConfig.transform.update();
 
 	// update particles
 
@@ -817,7 +817,7 @@ inline void ParticleEmitter::spawnParticle(Particle * p)
 
 	if (!myConfig.parentTransforms)
 	{
-		p->velocity = myState.transform.getRotationMatrix() * glm::vec4(p->velocity, 1.0f);
+		p->velocity = myConfig.transform.getRotationMatrix() * glm::vec4(p->velocity, 1.0f);
 		p->transform.setPosition(worldMatrix * glm::vec4(p->transform.getPosition(), 1.0f));
 	}
 
@@ -1006,7 +1006,7 @@ void ParticleSystem::update()
 {
 	for (auto emitter : m_emitters)
 	{
-		emitter->worldMatrix = parent->transformable->getTransform() * emitter->myState.transform.getTransform();
+		emitter->worldMatrix = parent->transformable->getTransform() * emitter->myConfig.transform.getTransform();
 		emitter->update(0.016f); //todo: temp dt solution
 		emitter->draw();
 	}

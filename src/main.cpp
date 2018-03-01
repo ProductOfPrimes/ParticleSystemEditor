@@ -269,7 +269,7 @@ void SaveEmitterSystemBinaryFile() {
 			for (int ix = 0; ix < activeSystem->m_emitters.size(); ix++) {
 				ParticleEmitter* emitter = activeSystem->m_emitters[ix];
 				textFile.write(reinterpret_cast<char*>(&emitter->myConfig), sizeof(ParticleEmitter::Config));
-				textFile.write(reinterpret_cast<char*>(&emitter->myState.transform), sizeof(Transform));
+				//textFile.write(reinterpret_cast<char*>(&emitter->myState.transform), sizeof(Transform));
 				emitter->myState.path.Write(textFile);
 				emitter->myState.sizeGraph.Write(textFile);
 				emitter->myState.speedGraph.Write(textFile);
@@ -318,7 +318,7 @@ void OpenEmitterSystemBinaryFile() {
 				addEmitter();
 				ParticleEmitter* emitter = activeSystem->m_emitters[ix];
 				textFile.read(reinterpret_cast<char*>(&emitter->myConfig), sizeof(ParticleEmitter::Config));
-				textFile.read(reinterpret_cast<char*>(&emitter->myState.transform), sizeof(Transform));
+				//textFile.read(reinterpret_cast<char*>(&emitter->myState.transform), sizeof(Transform));
 				emitter->setNumParticles(emitter->myConfig.numberOfParticles);
 
 				emitter->myState.path.Read(textFile);
@@ -502,16 +502,16 @@ void showUI() {
 			//****************************************************************************
 			if (ImGui::CollapsingHeader("Emitter Transform Options"))
 			{
-				glm::vec3 position = emitter->myState.transform.getPosition();
-				glm::vec3 rotation = emitter->myState.transform.getRotation();
+				glm::vec3 position = emitter->myConfig.transform.getPosition();
+				glm::vec3 rotation = emitter->myConfig.transform.getRotation();
 
 				if (ImGui::DragFloat3("Position", &position.x))
 				{
-					emitter->myState.transform.setPosition(position);
+					emitter->myConfig.transform.setPosition(position);
 				}
 				if (ImGui::DragFloat3("Rotation", &rotation.x))
 				{
-					emitter->myState.transform.setRotation(rotation);
+					emitter->myConfig.transform.setRotation(rotation);
 				}
 
 				ImGui::DragFloat3("Rotational velocity", &(emitter->myConfig.rotationalVelocity[0]));
@@ -656,7 +656,7 @@ void showUI() {
 			//************************************************************************
 			if (ImGui::CollapsingHeader("3D Spline Options")) {
 				
-				auto newNodePosition = activeSystem->getEmitter(currentEmitter)->myState.transform.getPosition();
+				auto newNodePosition = activeSystem->getEmitter(currentEmitter)->myConfig.transform.getPosition();
 
 				if (ImGui::Button("add linear node"))
 				{
@@ -808,13 +808,13 @@ void Update(void)
 	{
 		for (auto e : activeSystem->m_emitters)
 		{
-			drawTransform(e->myState.transform); // draw all emitter frames
+			drawTransform(e->myConfig.transform); // draw all emitter frames
 		}
 		drawMat4(parentObject->transformable->getTransform(), 6.0f); // draw parent gameobject
 
 		// draw selected emitter
-		TTK::Graphics::DrawSphere(emitter->myState.transform.getTransform(), 0.4f, glm::vec4(0.2f, 1.0f, 0.2f, 1.0f));
-		drawTransform(emitter->myState.transform, 2.2f);
+		TTK::Graphics::DrawSphere(emitter->myConfig.transform.getTransform(), 0.4f, glm::vec4(0.2f, 1.0f, 0.2f, 1.0f));
+		drawTransform(emitter->myConfig.transform, 2.2f);
 	}
 
 	// Swap buffers
@@ -851,29 +851,29 @@ void KeyboardCallbackFunction(unsigned char key, int x, int y)
 		{
 		case 'w':
 		case 'W':
-			emitter->myState.transform.moveY(10.0f);
+			emitter->myConfig.transform.moveY(10.0f);
 
 			break;
 		case 'a':
 		case 'A':
-			emitter->myState.transform.moveX(-10.0f);
+			emitter->myConfig.transform.moveX(-10.0f);
 			break;
 		case 's':
 		case 'S':
-			emitter->myState.transform.moveY(-10.0f);
+			emitter->myConfig.transform.moveY(-10.0f);
 			
 			break;
 		case 'd':
 		case 'D':
-			emitter->myState.transform.moveX(10.0f);
+			emitter->myConfig.transform.moveX(10.0f);
 			break;
 		case 'e':
 		case 'E':
-			emitter->myState.transform.moveZ(-10.0f);
+			emitter->myConfig.transform.moveZ(-10.0f);
 			break;
 		case 'q':
 		case 'Q':
-			emitter->myState.transform.moveZ(10.0f);
+			emitter->myConfig.transform.moveZ(10.0f);
 			break;
 		}
 	}
