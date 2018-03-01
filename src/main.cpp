@@ -30,8 +30,6 @@
 #include "imgui/imgui.h"
 #include <glm\gtc\random.hpp> // for glm::linearRand
 
-
-
 // Defines and Core variables
 #define FRAMES_PER_SECOND 60
 const int FRAME_DELAY = 1000 / FRAMES_PER_SECOND; // Milliseconds per frame
@@ -357,98 +355,6 @@ void SaveEmitterSystemTextFile() {
 				emitter->myState.speedGraph.Write(textFile);
 				emitter->myState.colourGraph.Write(textFile);
 			}
-			/*
-			textFile << std::to_string(activeSystem->m_emitters[0]->getNumParticles()) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->arriveForce) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->arriveMaxForce) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->arrivePoint.x) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->arrivePoint.y) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->arrivePoint.z) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->arriveRange) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->attractForce) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->attractPoint.x) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->attractPoint.y) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->attractPoint.z) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->attractRange) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->boxSize.x) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->boxSize.y) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->boxSize.z) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->colourBegin0.r) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->colourBegin0.g) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->colourBegin0.b) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->colourBegin0.a) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->colourBegin1.r) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->colourBegin1.g) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->colourBegin1.b) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->colourBegin1.a) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->colourEnd0.r) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->colourEnd0.g) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->colourEnd0.b) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->colourEnd0.a) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->colourEnd1.r) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->colourEnd1.g) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->colourEnd1.b) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->colourEnd1.a) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->colourOverLifetime) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->directFollowMode) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->duration) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->emissionRate) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->emissionShape) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->emitterOffset.x) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->emitterOffset.y) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->emitterOffset.z) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->finalSpeedLimitRange.x) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->finalSpeedLimitRange.y) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->followPath) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->frustumHeight) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->frustumRadiusSpawn) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->frustumRadiusTarget) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->globalAccelerationVector.x) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->globalAccelerationVector.y) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->globalAccelerationVector.z) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->globalEffects) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->globalForceVector.x) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->globalForceVector.y) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->globalForceVector.z) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->gravitateMaxForce) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->gravitatePoint.x) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->gravitatePoint.y) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->gravitatePoint.z) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->gravitatePower) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->initialSpeedLimitRange.x) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->initialSpeedLimitRange.y) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->initialSpeedRange.x) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->initialSpeedRange.y) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->lifeRange.x) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->lifeRange.y) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->limitSpeedOverLifetime) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->lookAhead) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->loop) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->loopDelay) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->massRange.x) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->massRange.y) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->playing) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->rotationalVelocity.x) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->rotationalVelocity.y) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->rotationalVelocity.z) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->seekForce) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->seekingBehaviours) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->seekPoint.x) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->seekPoint.y) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->seekPoint.z) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->sizeOverLifetime) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->sizeRangeBegin.x) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->sizeRangeBegin.y) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->sizeRangeEnd.x) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->sizeRangeEnd.y) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->sphereRadius) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->steerForce) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->steeringBehaviours) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->steerMaxForce) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->steerPoint.x) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->steerPoint.y) << " ";
-			textFile << std::to_string(activeSystem->m_emitters[0]->steerPoint.z) << " ";
-			*/
 
 			textFile.close();
 		}
@@ -503,105 +409,8 @@ void OpenEmitterSystemTextFile() {
 				emitter->myState.colourGraph.Read(textFile);
 			}
 
-			/*
-			int NumParticles;
-			textFile >> NumParticles;
-			activeSystem->m_emitters[0]->setNumParticles(NumParticles);
-			textFile >> activeSystem->m_emitters[0]->arriveForce;
-			textFile >> activeSystem->m_emitters[0]->arriveMaxForce;
-			textFile >> activeSystem->m_emitters[0]->arrivePoint.x;
-			textFile >> activeSystem->m_emitters[0]->arrivePoint.y;
-			textFile >> activeSystem->m_emitters[0]->arrivePoint.z;
-			textFile >> activeSystem->m_emitters[0]->arriveRange;
-			textFile >> activeSystem->m_emitters[0]->attractForce;
-			textFile >> activeSystem->m_emitters[0]->attractPoint.x;
-			textFile >> activeSystem->m_emitters[0]->attractPoint.y;
-			textFile >> activeSystem->m_emitters[0]->attractPoint.z;
-			textFile >> activeSystem->m_emitters[0]->attractRange;
-			textFile >> activeSystem->m_emitters[0]->boxSize.x;
-			textFile >> activeSystem->m_emitters[0]->boxSize.y;
-			textFile >> activeSystem->m_emitters[0]->boxSize.z;
-			textFile >> activeSystem->m_emitters[0]->colourBegin0.r;
-			textFile >> activeSystem->m_emitters[0]->colourBegin0.g;
-			textFile >> activeSystem->m_emitters[0]->colourBegin0.b;
-			textFile >> activeSystem->m_emitters[0]->colourBegin0.a;
-			textFile >> activeSystem->m_emitters[0]->colourBegin1.r;
-			textFile >> activeSystem->m_emitters[0]->colourBegin1.g;
-			textFile >> activeSystem->m_emitters[0]->colourBegin1.b;
-			textFile >> activeSystem->m_emitters[0]->colourBegin1.a;
-			textFile >> activeSystem->m_emitters[0]->colourEnd0.r;
-			textFile >> activeSystem->m_emitters[0]->colourEnd0.g;
-			textFile >> activeSystem->m_emitters[0]->colourEnd0.b;
-			textFile >> activeSystem->m_emitters[0]->colourEnd0.a;
-			textFile >> activeSystem->m_emitters[0]->colourEnd1.r;
-			textFile >> activeSystem->m_emitters[0]->colourEnd1.g;
-			textFile >> activeSystem->m_emitters[0]->colourEnd1.b;
-			textFile >> activeSystem->m_emitters[0]->colourEnd1.a;
-			textFile >> activeSystem->m_emitters[0]->colourOverLifetime;
-			textFile >> activeSystem->m_emitters[0]->directFollowMode;
-			textFile >> activeSystem->m_emitters[0]->duration;
-			textFile >> activeSystem->m_emitters[0]->emissionRate;
-			textFile >> activeSystem->m_emitters[0]->emissionShape;
-			textFile >> activeSystem->m_emitters[0]->emitterOffset.x;
-			textFile >> activeSystem->m_emitters[0]->emitterOffset.y;
-			textFile >> activeSystem->m_emitters[0]->emitterOffset.z;
-			textFile >> activeSystem->m_emitters[0]->finalSpeedLimitRange.x;
-			textFile >> activeSystem->m_emitters[0]->finalSpeedLimitRange.y;
-			textFile >> activeSystem->m_emitters[0]->followPath;
-			textFile >> activeSystem->m_emitters[0]->frustumHeight;
-			textFile >> activeSystem->m_emitters[0]->frustumRadiusSpawn;
-			textFile >> activeSystem->m_emitters[0]->frustumRadiusTarget;
-			textFile >> activeSystem->m_emitters[0]->globalAccelerationVector.x;
-			textFile >> activeSystem->m_emitters[0]->globalAccelerationVector.y;
-			textFile >> activeSystem->m_emitters[0]->globalAccelerationVector.z;
-			textFile >> activeSystem->m_emitters[0]->globalEffects;
-			textFile >> activeSystem->m_emitters[0]->globalForceVector.x;
-			textFile >> activeSystem->m_emitters[0]->globalForceVector.y;
-			textFile >> activeSystem->m_emitters[0]->globalForceVector.z;
-			textFile >> activeSystem->m_emitters[0]->gravitateMaxForce;
-			textFile >> activeSystem->m_emitters[0]->gravitatePoint.x;
-			textFile >> activeSystem->m_emitters[0]->gravitatePoint.y;
-			textFile >> activeSystem->m_emitters[0]->gravitatePoint.z;
-			textFile >> activeSystem->m_emitters[0]->gravitatePower;
-			textFile >> activeSystem->m_emitters[0]->initialSpeedLimitRange.x;
-			textFile >> activeSystem->m_emitters[0]->initialSpeedLimitRange.y;
-			textFile >> activeSystem->m_emitters[0]->initialSpeedRange.x;
-			textFile >> activeSystem->m_emitters[0]->initialSpeedRange.y;
-			textFile >> activeSystem->m_emitters[0]->lifeRange.x;
-			textFile >> activeSystem->m_emitters[0]->lifeRange.y;
-			textFile >> activeSystem->m_emitters[0]->limitSpeedOverLifetime;
-			textFile >> activeSystem->m_emitters[0]->lookAhead;
-			textFile >> activeSystem->m_emitters[0]->loop;
-			textFile >> activeSystem->m_emitters[0]->loopDelay;
-			textFile >> activeSystem->m_emitters[0]->massRange.x;
-			textFile >> activeSystem->m_emitters[0]->massRange.y;
-			textFile >> activeSystem->m_emitters[0]->playing;
-			textFile >> activeSystem->m_emitters[0]->rotationalVelocity.x;
-			textFile >> activeSystem->m_emitters[0]->rotationalVelocity.y;
-			textFile >> activeSystem->m_emitters[0]->rotationalVelocity.z;
-			textFile >> activeSystem->m_emitters[0]->seekForce;
-			textFile >> activeSystem->m_emitters[0]->seekingBehaviours;
-			textFile >> activeSystem->m_emitters[0]->seekPoint.x;
-			textFile >> activeSystem->m_emitters[0]->seekPoint.y;
-			textFile >> activeSystem->m_emitters[0]->seekPoint.z;
-			textFile >> activeSystem->m_emitters[0]->sizeOverLifetime;
-			textFile >> activeSystem->m_emitters[0]->sizeRangeBegin.x;
-			textFile >> activeSystem->m_emitters[0]->sizeRangeBegin.y;
-			textFile >> activeSystem->m_emitters[0]->sizeRangeEnd.x;
-			textFile >> activeSystem->m_emitters[0]->sizeRangeEnd.y;
-			textFile >> activeSystem->m_emitters[0]->sphereRadius;
-			textFile >> activeSystem->m_emitters[0]->steerForce;
-			textFile >> activeSystem->m_emitters[0]->steeringBehaviours;
-			textFile >> activeSystem->m_emitters[0]->steerMaxForce;
-			textFile >> activeSystem->m_emitters[0]->steerPoint.x;
-			textFile >> activeSystem->m_emitters[0]->steerPoint.y;
-			textFile >> activeSystem->m_emitters[0]->steerPoint.z;
-			*/
-
 			textFile.close();
 		}
-		
-
 		
 	}
 	else if (result == NFD_CANCEL)
@@ -1196,8 +1005,6 @@ void KeyboardCallbackFunction(unsigned char key, int x, int y)
 			break;
 		}
 	}
-
-	//grapher.keyboardFunc(key);
 }
 
 /* function void KeyboardUpCallbackFunction(unsigned char, int,int)

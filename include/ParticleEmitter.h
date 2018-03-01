@@ -220,7 +220,7 @@ public:
 	template<class Archive>
 	void serialize(Archive & ar, const unsigned int version) 
 	{
-	/*
+	
 		//graphs
 		ar & pathHack;
 		ar & sizeHack;
@@ -228,93 +228,93 @@ public:
 		ar & colourHack;
 
 		//transformation data
-		ar & transform;
+		ar & myState.transform;
 
 		////emitter properties///////////////////////////////////////////////////////////////////////
-		ar &rotationalVelocity;
-		ar &emitterOffset;
-		ar &numberOfParticles;
-		ar &emissionShape;
-		ar &emissionRate;
+		ar &myConfig.rotationalVelocity;
+		ar &myConfig.emitterOffset;
+		ar &myConfig.numberOfParticles;
+		ar &myConfig.emissionShape;
+		ar &myConfig.emissionRate;
 
 		//cuboid
-		ar &boxSize; // size of the emitter box
+		ar &myConfig.boxSize; // size of the emitter box
 
 		//sphere
-		ar &sphereRadius;
+		ar &myConfig.sphereRadius;
 
 		//frustum
-		ar &frustumRadiusSpawn; //first circle, the part where vectors originate
-		ar &frustumRadiusTarget; //second circle, the part where vectors head toward
-		ar &frustumHeight;
+		ar &myConfig.frustumRadiusSpawn; //first circle, the part where vectors originate
+		ar &myConfig.frustumRadiusTarget; //second circle, the part where vectors head toward
+		ar &myConfig.frustumHeight;
 
 		///// Playback properties
-		ar &playing;
-		ar &loop;
+		ar &myConfig.playing;
+		ar &myConfig.loop;
 
-		ar &loopDelay;
-		ar &duration; //negative duration means infinite
+		ar &myConfig.loopDelay;
+		ar &myConfig.duration; //negative duration means infinite
 
 		// Parent toggle
-		ar &parentTransforms;
+		ar &myConfig.parentTransforms;
 
 		// path following stuff
-		ar &followPath;
-		ar &directFollowMode;
-		ar &lookAhead; // how far ahead particles will seek
-		ar &pathRadius;
-		ar &pathPower; //treated like speed in direct mode, like force otherwise
+		ar &myConfig.followPath;
+		ar &myConfig.directFollowMode;
+		ar &myConfig.lookAhead; // how far ahead particles will seek
+		ar &myConfig.pathRadius;
+		ar &myConfig.pathPower; //treated like speed in direct mode, like force otherwise
 
 		// steering stuff
-		ar &seekingBehaviours;
-		ar &steeringBehaviours;
+		ar &myConfig.seekingBehaviours;
+		ar &myConfig.steeringBehaviours;
 
-		ar &seekPoint;
-		ar &seekForce;
+		ar &myConfig.seekPoint;
+		ar &myConfig.seekForce;
 
-		ar &steerPoint;
-		ar &steerForce;
-		ar &steerMaxForce;
+		ar &myConfig.steerPoint;
+		ar &myConfig.steerForce;
+		ar &myConfig.steerMaxForce;
 
-		ar &gravitatePoint;
-		ar &gravitatePower;
-		ar &gravitateMaxForce;
+		ar &myConfig.gravitatePoint;
+		ar &myConfig.gravitatePower;
+		ar &myConfig.gravitateMaxForce;
 
-		ar &attractPoint;
-		ar &attractForce;
-		ar &attractRange;
+		ar &myConfig.attractPoint;
+		ar &myConfig.attractForce;
+		ar &myConfig.attractRange;
 
-		ar &arrivePoint;
-		ar &arriveForce;
-		ar &arriveRange;
-		ar &arriveMaxForce;
+		ar &myConfig.arrivePoint;
+		ar &myConfig.arriveForce;
+		ar &myConfig.arriveRange;
+		ar &myConfig.arriveMaxForce;
 
-		ar &globalEffects;
-		ar &globalForceVector;
-		ar &globalAccelerationVector;
+		ar &myConfig.globalEffects;
+		ar &myConfig.globalForceVector;
+		ar &myConfig.globalAccelerationVector;
 
 		///// Initial properties for newly spawned particles //////////////////////////////////////////////////////////////////////
-		ar &initialSpeedRange;
+		ar &myConfig.initialSpeedRange;
 
-		ar &limitSpeedOverLifetime;
-		ar &initialSpeedLimitRange;
-		ar &finalSpeedLimitRange;
+		ar &myConfig.limitSpeedOverLifetime;
+		ar &myConfig.initialSpeedLimitRange;
+		ar &myConfig.finalSpeedLimitRange;
 
 		// these properties are single floats, so we can pack the min and max into a vec2, just data!
-		ar &lifeRange;
+		ar &myConfig.lifeRange;
 
-		ar &sizeOverLifetime;
-		ar &sizeRangeBegin;
-		ar &sizeRangeEnd;
-		ar &massRange;
+		ar &myConfig.sizeOverLifetime;
+		ar &myConfig.sizeRangeBegin;
+		ar &myConfig.sizeRangeEnd;
+		ar &myConfig.massRange;
 
-		ar &colourOverLifetime;
-		ar &colourBegin0;
-		ar &colourBegin1;
+		ar &myConfig.colourOverLifetime;
+		ar &myConfig.colourBegin0;
+		ar &myConfig.colourBegin1;
 
-		ar &colourEnd0;
-		ar &colourEnd1;
-	*/
+		ar &myConfig.colourEnd0;
+		ar &myConfig.colourEnd1;
+	
 	}
 };
 
