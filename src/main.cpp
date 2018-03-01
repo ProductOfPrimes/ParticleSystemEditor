@@ -68,9 +68,9 @@ static bool drawTransforms = false;
 static bool loadEmitter = false;
 static bool saveEmitter = false;
 static bool openParticleSystem = false;
-static bool openParticleSystemText = false;
+static bool openParticleSystemBinary = false;
 static bool saveParticleSystem = false;
-static bool saveParticleSystemText = false;
+static bool saveParticleSystemBinary = false;
 static bool exitEditor = false;
 static bool addNewEmitter = false;
 static bool addPathNode = false;
@@ -80,16 +80,14 @@ static bool displayAbout = false;
 
 glm::vec3 rotation;
 
+// Variables used to display mech for size matching particle systems
 std::map<std::string, std::shared_ptr<TTK::OBJMesh>> meshes;
 std::string meshPath = "../Assets/Models/";
 std::shared_ptr<TTK::OBJMesh> torsoMesh = std::make_shared<TTK::OBJMesh>();
 std::shared_ptr<TTK::OBJMesh> legsMesh = std::make_shared<TTK::OBJMesh>();
-
 glm::mat4 worldMatrix;
 glm::mat4 scaleMatrix;
-
 #define RANDOM glm::linearRand(0.0f, 1.0f)
-
 
 void InitializeSystem()
 {
@@ -450,8 +448,8 @@ void showUI() {
 				ImGui::MenuItem("Open Particle System", NULL, &openParticleSystem);
 				ImGui::MenuItem("Save Particle System", NULL, &saveParticleSystem);
 				ImGui::Separator();
-				ImGui::MenuItem("Open Particle System - Text File", NULL, &openParticleSystemText);
-				ImGui::MenuItem("Save Particle System - Text File", NULL, &saveParticleSystemText);
+				ImGui::MenuItem("Open Particle System - Binary File", NULL, &openParticleSystemBinary);
+				ImGui::MenuItem("Save Particle System - Binary File", NULL, &saveParticleSystemBinary);
 				ImGui::Separator();
 				ImGui::MenuItem("Load Particle Emitter", NULL, &loadEmitter);
 				ImGui::MenuItem("Save Particle Emitter", NULL, &saveEmitter);
@@ -488,16 +486,16 @@ void showUI() {
 			saveParticleSystem = false;
 		}
 
-		if (openParticleSystemText) {
+		if (openParticleSystemBinary) {
 			OpenEmitterSystemBinaryFile();
 
-			openParticleSystemText = false;
+			openParticleSystemBinary = false;
 		}
 
-		if (saveParticleSystemText) {
+		if (saveParticleSystemBinary) {
 			SaveEmitterSystemBinaryFile();
 
-			saveParticleSystemText = false;
+			saveParticleSystemBinary = false;
 		}
 
 
