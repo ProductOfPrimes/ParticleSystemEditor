@@ -1,3 +1,7 @@
+// Authored By: Tom Tsiliopoulos - 100616336
+// Authored By: Joss Moo-Young - 100586602
+// Modified By: Shawn Matthews
+
 #include "Path.h"
 
 namespace algomath

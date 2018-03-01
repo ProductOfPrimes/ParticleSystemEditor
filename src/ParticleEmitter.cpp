@@ -1,4 +1,6 @@
-// Tom Tsiliopoulos - 100616336
+// Authored By: Tom Tsiliopoulos - 100616336
+// Authored By: Joss Moo-Young - 100586602
+// Modified By: Shawn Matthews
 
 #include <map> // for std::map
 #include <iostream> // for std::cout

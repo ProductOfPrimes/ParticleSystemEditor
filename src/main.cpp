@@ -1,5 +1,7 @@
-// Tom Tsiliopoulos - 100616336
-// Joss Moo-Young - 100586602
+// Authored By: Tom Tsiliopoulos - 100616336
+// Authored By: Joss Moo-Young - 100586602
+// Modified By: Shawn Matthews
+
 #define GLEW_STATIC
 #include "glew/glew.h"
 #pragma comment(lib, "glew32s.lib")
@@ -329,7 +331,7 @@ void SaveEmitterFile() {
 * @method SaveEmitterSystemTextFile
 * @return {void}
 */
-void SaveEmitterSystemTextFile() {
+void SaveEmitterSystemBinaryFile() {
 	const nfdchar_t *defaultPath = NULL;
 	nfdchar_t *outPath = NULL;
 
@@ -359,8 +361,6 @@ void SaveEmitterSystemTextFile() {
 			textFile.close();
 		}
 		
-
-		
 	}
 	else if (result == NFD_CANCEL)
 	{
@@ -377,7 +377,7 @@ void SaveEmitterSystemTextFile() {
 * @method OpenEmitterSystemTextFile
 * @return {void}
 */
-void OpenEmitterSystemTextFile() {
+void OpenEmitterSystemBinaryFile() {
 	const nfdchar_t *defaultPath = NULL;
 	nfdchar_t *outPath = NULL;
 
@@ -489,13 +489,13 @@ void showUI() {
 		}
 
 		if (openParticleSystemText) {
-			OpenEmitterSystemTextFile();
+			OpenEmitterSystemBinaryFile();
 
 			openParticleSystemText = false;
 		}
 
 		if (saveParticleSystemText) {
-			SaveEmitterSystemTextFile();
+			SaveEmitterSystemBinaryFile();
 
 			saveParticleSystemText = false;
 		}

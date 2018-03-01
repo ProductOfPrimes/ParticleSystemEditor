@@ -1,3 +1,6 @@
+// Authored By: Tom Tsiliopoulos - 100616336
+// Authored By: Joss Moo-Young - 100586602
+
 #pragma once
 
 namespace algomath
