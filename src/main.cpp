@@ -64,12 +64,9 @@ algomath::NodeGrapher grapher;
 int numParticleScale = 500;
 
 static bool drawTransforms = false;
-
-static bool loadEmitter = false;
-static bool saveEmitter = false;
-static bool openParticleSystem = false;
+static bool openParticleSystemBoost = false;
 static bool openParticleSystemBinary = false;
-static bool saveParticleSystem = false;
+static bool saveParticleSystemBoost = false;
 static bool saveParticleSystemBinary = false;
 static bool exitEditor = false;
 static bool addNewEmitter = false;
@@ -168,7 +165,7 @@ std::string GetProjectDirectory()
  * @method OpenEmitterSystemFile
  * @return {void}
  */
-void OpenEmitterSystemFile() {
+void OpenEmitterSystemFileBoost() {
 	const nfdchar_t *defaultPath = NULL;
 	nfdchar_t *outPath = NULL;
 
@@ -211,7 +208,7 @@ void OpenEmitterSystemFile() {
 * @method SaveEmitterSystemFile
 * @return {void}
 */
-void SaveEmitterSystemFile() {
+void SaveEmitterSystemFileBoost() {
 	const nfdchar_t *defaultPath = NULL;
 	nfdchar_t *outPath = NULL;
 
@@ -246,83 +243,6 @@ void SaveEmitterSystemFile() {
 	}
 }
 
-/*
-* @description This method loads a single emitter
-* @method OpenEmitterFile
-* @return {void}
-*/
-void OpenEmitterFile() {
-	const nfdchar_t *defaultPath = NULL;
-	nfdchar_t *outPath = NULL;
-
-	std::string currentDirectory = GetProjectDirectory();
-	defaultPath = currentDirectory.c_str();
-
-	nfdresult_t result = NFD_OpenDialog("dat", defaultPath, &outPath);
-
-
-	if (result == NFD_OKAY)
-	{
-		std::ifstream emitterFile(outPath, std::ios::in, std::ios::binary);
-
-		boost::archive::text_iarchive ia(emitterFile);
-
-		ParticleEmitter* emitter = new ParticleEmitter;
-		ia >> emitter;
-
-		emitter->hacksToPaths();
-		emitter->setNumParticles(emitter->getNumParticles()); //this line might look really, really dumb but its absolutely necessary.
-
-		activeSystem->addEmitter(emitter);
-		currentEmitter = activeSystem->numEmitters() - 1;
-
-		emitterFile.close();
-	}
-	else if (result == NFD_CANCEL)
-	{
-		puts("User pressed cancel.");
-	}
-	else
-	{
-		printf("Error: %s\n", NFD_GetError());
-	}
-}
-
-
-/*
-* @description this method saves a single emitter
-* @method SaveEmitterFile
-* @return {void}
-*/
-void SaveEmitterFile() {
-	const nfdchar_t *defaultPath = NULL;
-	nfdchar_t *outPath = NULL;
-
-	std::string currentDirectory = GetProjectDirectory();
-	defaultPath = currentDirectory.c_str();
-
-	nfdresult_t result = NFD_SaveDialog("dat", defaultPath, &outPath);
-
-	if (result == NFD_OKAY)
-	{
-		std::ofstream emitterFile(outPath, std::ios::out, std::ios::binary);
-
-		boost::archive::text_oarchive oa(emitterFile);
-
-		activeSystem->getEmitter(currentEmitter)->pathsToHacks();
-		oa << activeSystem->getEmitter(currentEmitter);
-
-		emitterFile.close();
-	}
-	else if (result == NFD_CANCEL)
-	{
-		puts("User pressed cancel.");
-	}
-	else
-	{
-		printf("Error: %s\n", NFD_GetError());
-	}
-}
 
 /*
 * @description this method saves an emitter system to a text file
@@ -445,14 +365,11 @@ void showUI() {
 		{
 			if (ImGui::BeginMenu("File"))
 			{
-				ImGui::MenuItem("Open Particle System", NULL, &openParticleSystem);
-				ImGui::MenuItem("Save Particle System", NULL, &saveParticleSystem);
+				ImGui::MenuItem("Open Particle System - Boost", NULL, &openParticleSystemBoost);
+				ImGui::MenuItem("Save Particle System - Boost", NULL, &saveParticleSystemBoost);
 				ImGui::Separator();
 				ImGui::MenuItem("Open Particle System - Binary File", NULL, &openParticleSystemBinary);
 				ImGui::MenuItem("Save Particle System - Binary File", NULL, &saveParticleSystemBinary);
-				ImGui::Separator();
-				ImGui::MenuItem("Load Particle Emitter", NULL, &loadEmitter);
-				ImGui::MenuItem("Save Particle Emitter", NULL, &saveEmitter);
 				ImGui::Separator();
 				ImGui::MenuItem("Exit", NULL, &exitEditor);
 				ImGui::EndMenu();
@@ -474,16 +391,16 @@ void showUI() {
 			ImGui::EndMainMenuBar();
 		}
 
-		if (openParticleSystem) {
-			OpenEmitterSystemFile();
+		if (openParticleSystemBoost) {
+			OpenEmitterSystemFileBoost();
 			
-			openParticleSystem = false;
+			openParticleSystemBoost = false;
 		}
 
-		if (saveParticleSystem) {
-			SaveEmitterSystemFile();
+		if (saveParticleSystemBoost) {
+			SaveEmitterSystemFileBoost();
 
-			saveParticleSystem = false;
+			saveParticleSystemBoost = false;
 		}
 
 		if (openParticleSystemBinary) {
@@ -496,19 +413,6 @@ void showUI() {
 			SaveEmitterSystemBinaryFile();
 
 			saveParticleSystemBinary = false;
-		}
-
-
-		if (loadEmitter) {
-			OpenEmitterFile();
-
-			loadEmitter = false;
-		}
-
-		if (saveEmitter) {
-			SaveEmitterFile();
-
-			saveEmitter = false;
 		}
 
 		if (exitEditor) {
